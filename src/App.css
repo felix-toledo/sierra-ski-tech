@@ -5,7 +5,7 @@ body {
   padding: 0;
   background-color: #f9f9f9;
   color: #2c4464;
-  background-image: url('speckle.png');
+  background-image: url('/public/speckle.png');
 }
 
 /* Header */

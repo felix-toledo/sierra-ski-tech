@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Mi Aplicación PWA',
-        short_name: 'MiApp',
-        description: 'Una aplicación increíble con soporte PWA',
+        name: 'Ski Chart Calculator',
+        short_name: 'SkiCalc',
+        description: 'Aplicación para calcular configuraciones de esquí.',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
@@ -23,13 +23,22 @@ export default defineConfig({
           {
             src: '/sierrast_logo.png',
             sizes: '512x512',
-            type: 'image/png',  
+            type: 'image/png',
           },
           {
             src: '/sierrast_logo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,png,svg}'], // Archivos a cachear
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/.*\.(?:png|jpg|jpeg|svg)$/, // Ejemplo de imágenes externas
+            handler: 'CacheFirst', // Estrategia de caché
           },
         ],
       },
