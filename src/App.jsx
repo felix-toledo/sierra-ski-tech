@@ -28,22 +28,22 @@ function App() {
     indicatorSettings: {
       soleLength: [{from:0 , to:230}, {from:231 , to:250}, {from:251 , to:270},{from:271 , to:290}, {from:291 , to:310}, {from:311 , to:330}, {from:331 , to:350}, {from:351 , to:1000}],
       skierCodes: {
-        A: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
-        B: [1, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
-        C: [1.5, 1.25, 1.25, 1, 1, 1, 1, 1],
-        D: [2, 1.75, 1.5, 1.5, 1.25, 1.25, 1.25, 1.25],
-        E: [2.5, 2.25,2,  1.75, 1.5, 1.5, 1.5, 1.5],
-        F: [3, 2.75, 2.5, 2.25, 2, 1.75, 1.75, 1.75],
-        G: [3.5, 3.5, 3, 2.75, 2.5, 2.25, 2, 2],
-        H: [3.5, 3.5, 3.5, 3, 3, 2.75, 2.5, 2.5],
-        I: [4.5, 4.5, 4.5, 4, 3.5, 3.5, 3, 3],
-        J: [5.5, 5.5, 5.5, 5, 4.5, 4, 3.5, 3],
-        K: [6.5, 6.5, 6.5, 6, 5.5, 5, 4.5, 4],
-        L: [7.5, 7.5, 7.5, 7, 6.5, 6, 5.5, 5],
-        M: [8.5, 8.5, 8.5, 8.5, 8, 7, 6.5, 6],
-        N: [10, 10, 10, 10, 9.5, 8.5, 8, 7.5],
-        O: [11.5, 11.5, 11.5, 11.5, 11, 10, 9.5, 9],
-        P: [12, 12, 12, 12, 12, 12, 11, 10.5],
+        A: [0.75, 0.75, 0.75, 'Check table A4', 'Check table A5', 'Check table A6', 'Check table A7', 'Check table A8'],
+        B: [1, 0.75, 0.75, 0.75, 'Check table B5', 'Check table B6', 'Check table B7', 'Check table B8'],
+        C: [1.5, 1.25, 1.25, 1, 'Check table C5', 'Check table C6', 'Check table C7', 'Check table C8'],
+        D: [2, 1.75, 1.5, 1.5, 1.25, 'Check table D6', 'Check table D7', 'Check table D8'],
+        E: [2.5, 2.25, 2, 1.75, 1.5, 1.5, 'Check table E7', 'Check table E8'],
+        F: [3, 2.75, 2.5, 2.25, 2, 1.75, 1.75, 'Check table F8'],
+        G: ['Look table G1', 3.5, 3, 2.75, 2.5, 2.25, 2, 'Check table G8'],
+        H: ['Look table H1', 'Look table H2', 3.5, 3, 3, 2.75, 2.5, 'Look table H8'],
+        I: ['Check table I1', 'Check table I2', 4.5, 4, 3.5, 3.5, 3, 'Check table I8'],
+        J: ['Check table J1', 'Check table J2', 5.5, 5, 4.5, 4, 3.5, 3],
+        K: ['Check table K1', 'Check table K2', 6.5, 6, 5.5, 5, 4.5, 4],
+        L: ['Check table L1', 'Check table L2', 7.5, 7, 6.5, 6, 5.5, 5],
+        M: ['Check table M1', 'Check table M2', 'Check table M3', 8.5, 8, 7, 6.5, 6],
+        N: ['Check table N1', 'Check table N2', 'Check table N3', 10, 9.5, 8.5, 8, 7.5],
+        O: ['Check table O1', 'Check table O2', 'Check table O3', 11.5, 11, 10, 9.5, 9],
+        P: ['Check table P1', 'Check table P2', 'Check table P3', 'Check table P4', 'Check table P5', 12, 11, 10.5],        
       },
     }
   };
@@ -67,15 +67,16 @@ function App() {
     // Buscar el rango de altura correspondiente
     const heightRange = skiChart.weightRanges.find(range => {
       if (!range.height) return false;
-
+      
       const { from, to } = range.height;
-      const minHeight = from * 12; // Convertir pies a pulgadas
-      const maxHeight = to ? to * 12 : Infinity; // Convertir pies a pulgadas (si no hay límite superior, usar Infinity)
+      const minHeight = from; // Convertir pies a pulgadas
+      const maxHeight = to; // Convertir pies a pulgadas (si no hay límite superior, usar Infinity)
 
       return heightInInches >= minHeight && heightInInches <= maxHeight;
     });
 
     // Verificar si el `skierCode` de la altura es menor
+    console.log(heightRange)
     if (heightRange && heightRange.skierCode < skierCode) {
       skierCode = heightRange.skierCode;
       console.log('dps del height: ', skierCode);
