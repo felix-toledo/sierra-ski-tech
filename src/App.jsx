@@ -68,7 +68,7 @@ function App() {
     console.log('dps del weight: ', skierCode);
     // Convertir altura ingresada (pies y pulgadas) a pulgadas totales
     const heightInInches = parseFloat(height);
-  
+    console.log(heightInInches)
     // Buscar el rango de altura correspondiente
     const heightRange = skiChart.weightRanges.find(range => {
       if (!range.height) return false;
@@ -131,6 +131,13 @@ function App() {
       }
     };
 
+    const handleHeightChange = (e) => {
+      let value = e.target.value;
+      // Reemplazar coma por punto
+      value = value.replace(',', '.');
+      setHeight(value);
+    };
+
   return (
 <div className="App">
       <header className="header">
@@ -163,13 +170,13 @@ function App() {
           <div className="input-group">
             <label>Height (inches): </label>
             <input
-              type="number"
+              type="text"
               inputMode="decimal"
               value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={handleHeightChange}
               onKeyDown={(e) => handleKeyDown(e, skierTypeRef)}
               ref={heightRef}
-              placeholder='E.g.: 5.10 (Important to separate ft and in with a point)'
+              placeholder='E.g.: 5.10 (Important to separate ft and in with a point or a comma)'
             />
           </div>
           <div className="input-group">
