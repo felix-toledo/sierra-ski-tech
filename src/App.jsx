@@ -154,6 +154,27 @@ function App() {
       </header>
       <main className="main">
         <h2>Ski Chart Calculator</h2>
+        {result && (
+          <div className="results">
+            <h2>Results</h2>
+                    {typeof result === "string" ? (
+          <p>{result}</p>
+        ) : (
+          <div className="result-summary">
+            <p><strong>Skier Code:</strong> {result.skierCode}</p>
+            <p><strong>Indicator Setting:</strong> {result.indicatorSetting}</p>
+            <small>
+              <strong>Input Data: </strong> 
+              Age: {result.inputData.age}, 
+              Weight: {result.inputData.weight} lbs, 
+              Height: {result.inputData.height} inches, 
+              Type: {result.inputData.skierType}, 
+              Sole Length: {result.inputData.soleLength} mm
+            </small>
+          </div>
+        )}
+          </div>
+        )}
         <form onSubmit={(e) => e.preventDefault()} className="form">
           <div className="input-group">
             <label>Age: </label>
@@ -213,27 +234,6 @@ function App() {
           <button className="btn" onClick={calculateSkierCode}>Calculate</button>
         </form> 
 
-        {result && (
-          <div className="results">
-            <h2>Results</h2>
-                    {typeof result === "string" ? (
-          <p>{result}</p>
-        ) : (
-          <div className="result-summary">
-            <p><strong>Skier Code:</strong> {result.skierCode}</p>
-            <p><strong>Indicator Setting:</strong> {result.indicatorSetting}</p>
-            <small>
-              <strong>Input Data: </strong> 
-              Age: {result.inputData.age}, 
-              Weight: {result.inputData.weight} lbs, 
-              Height: {result.inputData.height} inches, 
-              Type: {result.inputData.skierType}, 
-              Sole Length: {result.inputData.soleLength} mm
-            </small>
-          </div>
-        )}
-          </div>
-        )}
       </main>
     </div>
   );

@@ -92,7 +92,7 @@ input:focus {
 
 /* Results */
 .results {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
   padding: 1rem;
   border: 1px solid #2c4464;
   border-radius: 4px;
