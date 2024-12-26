@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
@@ -47,6 +47,11 @@ function App() {
       },
     }
   };
+
+  const weightRef = useRef(null);
+  const heightRef = useRef(null);
+  const skierTypeRef = useRef(null);
+  const soleLengthRef = useRef(null);
 
   const calculateSkierCode = () => {
     let weightRange = skiChart.weightRanges.find(range => {
@@ -106,9 +111,25 @@ function App() {
     // Verificar si se encontró un índice válido
     const indicatorSetting = skiChart.indicatorSettings.skierCodes[skierCode]?.[soleIndex] || "Not found";    
   
-    setResult({ skierCode, indicatorSetting });
+    setResult({ 
+      skierCode, 
+      indicatorSetting,
+      inputData: { age, weight, height, skierType, soleLength } 
+    });
+    setAge('');
+    setWeight('');
+    setHeight('');
+    setSkierType('');
+    setSoleLength('');
   };
   
+    // Controlador para manejar Enter y pasar al siguiente input
+    const handleKeyDown = (event, nextRef) => {
+      if (event.key === 'Enter' && nextRef) {
+        event.preventDefault();
+        nextRef.current.focus();
+      }
+    };
 
   return (
 <div className="App">
@@ -120,38 +141,80 @@ function App() {
         <form onSubmit={(e) => e.preventDefault()} className="form">
           <div className="input-group">
             <label>Age: </label>
-            <input type="number" value={age} onChange={(e) => setAge(e.target.value)} />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, weightRef)}
+            />
           </div>
           <div className="input-group">
             <label>Weight (lbs): </label>
-            <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, heightRef)}
+              ref={weightRef}
+            />
           </div>
           <div className="input-group">
             <label>Height (inches): </label>
-            <input placeholder='E.g.: 4.11' type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, skierTypeRef)}
+              ref={heightRef}
+            />
           </div>
           <div className="input-group">
             <label>Type of Skier (1, 2, 3): </label>
-            <input type="text" value={skierType} onChange={(e) => setSkierType(e.target.value.toUpperCase())} />
+            <input
+              type="text"
+              inputMode="numeric"
+              value={skierType}
+              onChange={(e) => setSkierType(e.target.value.toUpperCase())}
+              onKeyDown={(e) => handleKeyDown(e, soleLengthRef)}
+              ref={skierTypeRef}
+            />
           </div>
           <div className="input-group">
             <label>Sole Length (mm): </label>
-            <input type="number" value={soleLength} onChange={(e) => setSoleLength(e.target.value)} />
+            <input
+              type="number"
+              inputMode="numeric"
+              value={soleLength}
+              onChange={(e) => setSoleLength(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, null)} // Último input, sin referencia siguiente
+              ref={soleLengthRef}
+            />
           </div>
           <button className="btn" onClick={calculateSkierCode}>Calculate</button>
-        </form>
+        </form> 
 
         {result && (
           <div className="results">
             <h2>Results</h2>
-            {typeof result === "string" ? (
-              <p>{result}</p>
-            ) : (
-              <div>
-                <p>Skier Code: {result.skierCode}</p>
-                <p>Indicator Setting: {result.indicatorSetting}</p>
-              </div>
-            )}
+                    {typeof result === "string" ? (
+          <p>{result}</p>
+        ) : (
+          <div className="result-summary">
+            <p><strong>Skier Code:</strong> {result.skierCode}</p>
+            <p><strong>Indicator Setting:</strong> {result.indicatorSetting}</p>
+            <small>
+              <strong>Input Data: </strong> 
+              Age: {result.inputData.age}, 
+              Weight: {result.inputData.weight} lbs, 
+              Height: {result.inputData.height} inches, 
+              Type: {result.inputData.skierType}, 
+              Sole Length: {result.inputData.soleLength} mm
+            </small>
+          </div>
+        )}
           </div>
         )}
       </main>

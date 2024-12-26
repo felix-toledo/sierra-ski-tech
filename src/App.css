@@ -98,3 +98,8 @@ input:focus {
   border-radius: 4px;
   background-color: #ffffff;
 }
+
+.result-summary small {
+  font-size: 0.8rem;
+  color: #555;
+}
