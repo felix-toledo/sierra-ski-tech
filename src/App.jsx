@@ -9,6 +9,13 @@ function App() {
   const [soleLength, setSoleLength] = useState('');
   const [result, setResult] = useState(null);
 
+  const scrollToResult = () => {
+    const resultElement = document.querySelector('.results');
+    if (resultElement) {
+      resultElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   const skiChart = {
     weightRanges: [
       { range: "22-29", skierCode: "A" },
@@ -116,6 +123,7 @@ function App() {
       indicatorSetting,
       inputData: { age, weight, height, skierType, soleLength } 
     });
+    scrollToResult();
     setAge('');
     setWeight('');
     setHeight('');
@@ -135,6 +143,7 @@ function App() {
       let value = e.target.value;
       // Reemplazar coma por punto
       value = value.replace(',', '.');
+
       setHeight(value);
     };
 
