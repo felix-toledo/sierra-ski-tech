@@ -164,11 +164,12 @@ function App() {
             <label>Height (inches): </label>
             <input
               type="number"
-              inputMode="numeric"
+              inputMode="decimal"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               onKeyDown={(e) => handleKeyDown(e, skierTypeRef)}
               ref={heightRef}
+              placeholder='E.g.: 5.10 (Important to separate ft and in with a point)'
             />
           </div>
           <div className="input-group">
